@@ -33,7 +33,6 @@ const tagQuery = `*[_type == "tag" && slug.current == $tag][0] {
 
 // メタデータ生成
 export async function generateMetadata({ params }: { params: { tag: string } }) {
-  // @ts-ignore
   const tag = await client.fetch<Tag>(tagQuery, { tag: params.tag });
   if (!tag) {
     return { title: "Tag Not Found" };
