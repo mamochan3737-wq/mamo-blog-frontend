@@ -42,7 +42,7 @@ export default async function SearchPage({
   return (
     <section className="py-12">
       <h1 className="text-2xl md:text-4xl font-bold text-center mb-12">
-        検索結果: <span className="text-blue-600">"{q}"</span>
+        検索結果: <span className="text-blue-600">&quot;{q}&quot;</span>
       </h1>
       
       {posts && posts.length > 0 ? (
