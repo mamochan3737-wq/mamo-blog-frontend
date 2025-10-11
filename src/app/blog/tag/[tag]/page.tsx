@@ -37,7 +37,7 @@ const tagQuery = `
 
 // メタデータ生成
 export async function generateMetadata({ params }: { params: { tag: string } }) {
-  const tag = await client.fetch<any, { tag: string }>(tagQuery, { tag: params.tag });
+  const tag = await client.fetch<any>(tagQuery, { tag: params.tag } as any);
 
   if (!tag) return { title: "Tag Not Found" };
   return { title: `${tag.title} | Blog`, description: tag.description };
@@ -46,8 +46,8 @@ export async function generateMetadata({ params }: { params: { tag: string } }) 
 // ページコンポーネント
 export default async function TagPage({ params }: { params: { tag: string } }) {
   const [posts, tag] = await Promise.all([
-    client.fetch<any, { tag: string }>(postsQuery, { tag: params.tag }),
-    client.fetch<any, { tag: string }>(tagQuery, { tag: params.tag })
+    client.fetch<any>(postsQuery, { tag: params.tag } as any),
+    client.fetch<any>(tagQuery, { tag: params.tag } as any)
   ]);
 
   if (!tag) {
