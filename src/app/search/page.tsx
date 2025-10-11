@@ -37,7 +37,7 @@ export default async function SearchPage({
     );
   }
 
-  const posts = await client.fetch<any>(query, { query: q });
+  const posts = await client.fetch<any>(query, { query: q } as any);
 
   return (
     <section className="py-12">
