@@ -1,4 +1,4 @@
-import { client } from "@/sanity/lib/client";
+import { client } from "@/lib/sanity.client";
 import Link from "next/link";
 
 // 型定義

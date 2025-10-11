@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { client } from '@/sanity/lib/client';
+import { client } from '@/lib/sanity.client';
 
 // TODO: 本番環境のドメインに置き換えてください
 const baseUrl = 'https://your-domain.com';
