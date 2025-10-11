@@ -36,7 +36,7 @@ const query = `*[_type == "post" && slug.current == $slug][0] {
 
 // 動的なメタデータ（ページのタイトルなど）を生成する関数
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = await client.fetch<Post>(query, { slug: params.slug });
+  const post = await client.fetch(query, { slug: params.slug });
   if (!post) {
     return {
       title: "Not Found",
@@ -69,7 +69,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
-  const post = await client.fetch<Post>(query, { slug: params.slug });
+  const post = await client.fetch(query, { slug: params.slug });
 
   if (!post) {
     notFound(); // 記事が見つからない場合は404ページを表示

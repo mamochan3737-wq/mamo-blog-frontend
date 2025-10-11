@@ -33,8 +33,7 @@ const tagQuery = `*[_type == "tag" && slug.current == $tag][0] {
 
 // メタデータ生成
 export async function generateMetadata({ params }: { params: { tag: string } }) {
-  // @ts-ignore
-  const tag = await client.fetch<Tag>(tagQuery, { tag: params.tag });
+  const tag = await client.fetch(tagQuery, { tag: params.tag });
   if (!tag) {
     return { title: "Tag Not Found" };
   }
@@ -44,8 +43,8 @@ export async function generateMetadata({ params }: { params: { tag: string } }) 
 // ページコンポーネント
 export default async function TagPage({ params }: { params: { tag: string } }) {
   const [posts, tag] = await Promise.all([
-    client.fetch<Post[]>(postsQuery, { tag: params.tag }),
-    client.fetch<Tag>(tagQuery, { tag: params.tag })
+    client.fetch(postsQuery, { tag: params.tag }),
+    client.fetch(tagQuery, { tag: params.tag })
   ]);
 
   if (!tag) {

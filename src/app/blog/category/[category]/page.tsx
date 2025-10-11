@@ -33,7 +33,7 @@ const categoryQuery = `*[_type == "category" && slug.current == $category][0] {
 
 // メタデータ生成
 export async function generateMetadata({ params }: { params: { category: string } }) {
-  const category = await client.fetch<Category>(categoryQuery, { category: params.category });
+  const category = await client.fetch(categoryQuery, { category: params.category });
   if (!category) {
     return { title: "Category Not Found" };
   }
@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: { params: { category: string 
 // ページコンポーネント
 export default async function CategoryPage({ params }: { params: { category: string } }) {
   const [posts, category] = await Promise.all([
-    client.fetch<Post[]>(postsQuery, { category: params.category }),
-    client.fetch<Category>(categoryQuery, { category: params.category })
+    client.fetch(postsQuery, { category: params.category }),
+    client.fetch(categoryQuery, { category: params.category })
   ]);
 
   if (!category) {

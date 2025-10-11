@@ -21,7 +21,7 @@ interface Post {
 }
 
 export default async function Home() {
-  const posts = await client.fetch<Post[]>(query);
+  const posts = await client.fetch(query);
 
   return (
     <>
