@@ -7,8 +7,8 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "mamo-blog",
-  description: "A personal blog by mamo.",
+  title: "ふわっと主婦のAI副業日記 〜コーディングで叶える小さな夢〜",
+  description: "プログラミングスクールで学ぶも挫折してしまった私が、AIとバイブコーディングに出会い、少しずつ副業の道を切り開いていく日々を綴ります。挫折や迷いも正直にシェアしながら、主婦目線でのAI副業の楽しさや学び方、コツをわかりやすく発信。「興味はあるけど一歩踏み出せない…」そんなあなたに、少し勇気とヒントを届けるブログです。",
 };
 
 export default function RootLayout({
