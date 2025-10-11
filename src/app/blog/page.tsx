@@ -1,4 +1,4 @@
-import { client, urlFor } from "@/lib/sanity.client";
+import { client, urlFor } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,7 +23,7 @@ interface Post {
 }
 
 export default async function BlogPage() {
-  const posts = await client.fetch(query);
+  const posts = await client.fetch<any>(query);
 
   return (
     <section className="py-12">
@@ -31,7 +31,7 @@ export default async function BlogPage() {
       
       {posts && posts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
+          {posts.map((post: Post) => (
             <Link key={post._id} href={`/blog/${post.slug}`} className="block group">
               <div className="overflow-hidden rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300 bg-white h-full flex flex-col">
                 {post.mainImage && (

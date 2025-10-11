@@ -1,4 +1,4 @@
-import { client, urlFor } from "@/lib/sanity.client";
+import { client, urlFor } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,6 +15,7 @@ interface Post {
 
 interface Tag {
   title: string;
+  description?: string;
 }
 
 // クエリ
@@ -27,24 +28,26 @@ const postsQuery = `*[_type == "post" && $tag in tags[]->slug.current] | order(p
   publishedAt
 }`;
 
-const tagQuery = `*[_type == "tag" && slug.current == $tag][0] {
-  title
-}`;
+const tagQuery = `
+  *[_type == "tag" && slug.current == $tag][0]{
+    title,
+    description
+  }
+`;
 
 // メタデータ生成
 export async function generateMetadata({ params }: { params: { tag: string } }) {
-  const tag = await client.fetch(tagQuery, { tag: params.tag });
-  if (!tag) {
-    return { title: "Tag Not Found" };
-  }
-  return { title: `Tag: ${tag.title}` };
+  const tag = await client.fetch<any>(tagQuery, { tag: params.tag });
+
+  if (!tag) return { title: "Tag Not Found" };
+  return { title: `${tag.title} | Blog`, description: tag.description };
 }
 
 // ページコンポーネント
 export default async function TagPage({ params }: { params: { tag: string } }) {
   const [posts, tag] = await Promise.all([
-    client.fetch(postsQuery, { tag: params.tag }),
-    client.fetch(tagQuery, { tag: params.tag })
+    client.fetch<any>(postsQuery, { tag: params.tag }),
+    client.fetch<any>(tagQuery, { tag: params.tag })
   ]);
 
   if (!tag) {
@@ -62,7 +65,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
       
       {posts && posts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
+          {posts.map((post: Post) => (
             <Link key={post._id} href={`/blog/${post.slug}`} className="block group">
               <div className="overflow-hidden rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300 bg-white h-full flex flex-col">
                 {post.mainImage && (

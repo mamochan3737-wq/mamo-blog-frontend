@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanity.client";
+import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 
 // 型定義
@@ -37,7 +37,7 @@ export default async function SearchPage({
     );
   }
 
-  const posts = await client.fetch(query, { query: q });
+  const posts = await client.fetch<any>(query, { query: q });
 
   return (
     <section className="py-12">
@@ -48,7 +48,7 @@ export default async function SearchPage({
       {posts && posts.length > 0 ? (
         <div className="max-w-3xl mx-auto">
           <ul className="space-y-8">
-            {posts.map((post) => (
+            {posts.map((post: SearchResult) => (
               <li key={post._id}>
                 <Link href={`/blog/${post.slug}`} className="block group">
                   <h2 className="text-2xl font-bold group-hover:text-blue-600 transition-colors">{post.title}</h2>
