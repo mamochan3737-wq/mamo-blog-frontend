@@ -1,10 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const notoSansJP = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const notoSerifJP = Noto_Serif_JP({
+  subsets: ["latin"],
+  weight: "700",
+  variable: "--font-heading",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "ふわっと主婦のAI副業日記 〜コーディングで叶える小さな夢〜",
@@ -17,9 +29,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <body className={inter.className}>
-        <div className="flex flex-col min-h-screen">
+    <html lang="ja" className={`${notoSansJP.variable} ${notoSerifJP.variable}`}>
+      <body>
+        <div className="flex flex-col min-h-screen font-body">
           <Header />
           <main className="flex-grow container mx-auto px-4 py-8">
             {children}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import type { Metadata } from 'next';
+import ShareButtons from '@/components/ShareButtons'; // 追加
 
 // TODO: 本番環境のドメインに置き換えてください
 const baseUrl = 'https://your-domain.com';
@@ -122,7 +123,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <Link
             key={category.slug}
             href={`/blog/category/${category.slug}`}
-            className="bg-gray-200 text-gray-700 rounded-full px-3 py-1 text-sm font-semibold hover:bg-gray-300 transition-colors"
+            className="bg-rose-100 text-rose-800 rounded-full px-3 py-1 text-sm font-semibold hover:bg-rose-200 transition-colors"
           >
             {category.title}
           </Link>
@@ -131,7 +132,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <Link
             key={tag.slug}
             href={`/blog/tag/${tag.slug}`}
-            className="bg-green-100 text-green-800 rounded-full px-3 py-1 text-sm font-semibold hover:bg-green-200 transition-colors"
+            className="bg-amber-100 text-amber-800 rounded-full px-3 py-1 text-sm font-semibold hover:bg-amber-200 transition-colors"
           >
             #{tag.title}
           </Link>
@@ -153,6 +154,12 @@ export default async function PostPage({ params }: { params: { slug: string } })
       <div className="prose lg:prose-xl max-w-3xl mx-auto">
         <PortableText value={post.body} />
       </div>
+
+      {/* シェアボタンの追加 */}
+      <div className="max-w-3xl mx-auto">
+        <ShareButtons title={post.title} />
+      </div>
+
     </article>
   );
 }

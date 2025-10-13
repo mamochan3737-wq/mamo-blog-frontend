@@ -7,7 +7,12 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        body: ['var(--font-body)'],
+        heading: ['var(--font-heading)'],
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/typography'),
