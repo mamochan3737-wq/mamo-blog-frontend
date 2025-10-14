@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -14,7 +14,8 @@
     "next": "15.5.4",
     "next-sanity": "^11.4.2",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-intersection-observer": "^9.13.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
