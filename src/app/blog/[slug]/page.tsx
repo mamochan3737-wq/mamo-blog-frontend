@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import type { Metadata } from 'next';
-import ShareButtons from '@/components/ShareButtons'; // 追加
+import ShareButtons from '@/components/ShareButtons';
 
 // TODO: 本番環境のドメインに置き換えてください
 const baseUrl = 'https://your-domain.com';
@@ -22,6 +22,13 @@ interface Post {
   tags: { title: string; slug: string; }[];
 }
 
+// ページコンポーネントのPropsの型定義
+type Props = {
+  params: {
+    slug: string;
+  };
+};
+
 // GROQクエリ
 const query = `*[_type == "post" && slug.current == $slug][0] {
   title,
@@ -36,7 +43,7 @@ const query = `*[_type == "post" && slug.current == $slug][0] {
 }`;
 
 // 動的なメタデータ（ページのタイトルなど）を生成する関数
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await client.fetch<any>(query, { slug: params.slug });
   if (!post) {
     return {
@@ -69,7 +76,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage({ params }: Props) {
   const post = await client.fetch<any>(query, { slug: params.slug });
 
   if (!post) {
